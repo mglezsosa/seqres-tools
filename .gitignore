@@ -29,3 +29,5 @@ fabric.properties
 # Project specific
 hiclures*
 tests_dir/
+
+*.freq

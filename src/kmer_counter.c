@@ -15,21 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ctype.h>
-#include "sequence.h"
-#include "filehandle.h"
+#include "kmer_counter.h"
 
-int
-main(int argc, char *argv[])
+void
+count_kmers(char* filename, int k)
 {
-    int k, fd;
+    int fd;
     char* addr;
     off_t offset = 0, lastoffset;
     sequence_t S;
-    char* filename = argv[1];
     struct stat sb;
 
-    k = atoi(argv[2]);
     const int freqSize = (int) pow(4, k);
     int* frequencies = malloc(freqSize * sizeof(int));
     for(int n = 0; n < freqSize; n++) {
@@ -85,6 +81,4 @@ main(int argc, char *argv[])
         handle_error("munmap");
     if (close(fd) == -1)
         handle_error("close");
-
-    exit(EXIT_SUCCESS);
 }
