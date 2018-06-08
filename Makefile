@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named rw
+
+# Build rule for target.
+rw: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rw
+.PHONY : rw
+
+# fast build rule for target.
+rw/fast:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/build
+.PHONY : rw/fast
+
+#=============================================================================
 # Target rules for targets named hiclures
 
 # Build rule for target.
@@ -129,6 +142,7 @@ src/filehandle.o: src/filehandle.c.o
 
 # target to build an object file
 src/filehandle.c.o:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/filehandle.c.o
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/filehandle.c.o
 .PHONY : src/filehandle.c.o
 
@@ -138,6 +152,7 @@ src/filehandle.i: src/filehandle.c.i
 
 # target to preprocess a source file
 src/filehandle.c.i:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/filehandle.c.i
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/filehandle.c.i
 .PHONY : src/filehandle.c.i
 
@@ -147,6 +162,7 @@ src/filehandle.s: src/filehandle.c.s
 
 # target to generate assembly for a file
 src/filehandle.c.s:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/filehandle.c.s
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/filehandle.c.s
 .PHONY : src/filehandle.c.s
 
@@ -156,6 +172,7 @@ src/kmer_counter.o: src/kmer_counter.c.o
 
 # target to build an object file
 src/kmer_counter.c.o:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/kmer_counter.c.o
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/kmer_counter.c.o
 .PHONY : src/kmer_counter.c.o
 
@@ -165,6 +182,7 @@ src/kmer_counter.i: src/kmer_counter.c.i
 
 # target to preprocess a source file
 src/kmer_counter.c.i:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/kmer_counter.c.i
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/kmer_counter.c.i
 .PHONY : src/kmer_counter.c.i
 
@@ -174,6 +192,7 @@ src/kmer_counter.s: src/kmer_counter.c.s
 
 # target to generate assembly for a file
 src/kmer_counter.c.s:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/kmer_counter.c.s
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/kmer_counter.c.s
 .PHONY : src/kmer_counter.c.s
 
@@ -203,6 +222,33 @@ src/main.s: src/main.c.s
 src/main.c.s:
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/main.c.s
 .PHONY : src/main.c.s
+
+src/read_write_occurrences.o: src/read_write_occurrences.c.o
+
+.PHONY : src/read_write_occurrences.o
+
+# target to build an object file
+src/read_write_occurrences.c.o:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/read_write_occurrences.c.o
+.PHONY : src/read_write_occurrences.c.o
+
+src/read_write_occurrences.i: src/read_write_occurrences.c.i
+
+.PHONY : src/read_write_occurrences.i
+
+# target to preprocess a source file
+src/read_write_occurrences.c.i:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/read_write_occurrences.c.i
+.PHONY : src/read_write_occurrences.c.i
+
+src/read_write_occurrences.s: src/read_write_occurrences.c.s
+
+.PHONY : src/read_write_occurrences.s
+
+# target to generate assembly for a file
+src/read_write_occurrences.c.s:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/read_write_occurrences.c.s
+.PHONY : src/read_write_occurrences.c.s
 
 src/seq_distances.o: src/seq_distances.c.o
 
@@ -237,6 +283,7 @@ src/sequence.o: src/sequence.c.o
 
 # target to build an object file
 src/sequence.c.o:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/sequence.c.o
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/sequence.c.o
 .PHONY : src/sequence.c.o
 
@@ -246,6 +293,7 @@ src/sequence.i: src/sequence.c.i
 
 # target to preprocess a source file
 src/sequence.c.i:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/sequence.c.i
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/sequence.c.i
 .PHONY : src/sequence.c.i
 
@@ -255,6 +303,7 @@ src/sequence.s: src/sequence.c.s
 
 # target to generate assembly for a file
 src/sequence.c.s:
+	$(MAKE) -f CMakeFiles/rw.dir/build.make CMakeFiles/rw.dir/src/sequence.c.s
 	$(MAKE) -f CMakeFiles/hiclures.dir/build.make CMakeFiles/hiclures.dir/src/sequence.c.s
 .PHONY : src/sequence.c.s
 
@@ -266,6 +315,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... rw"
 	@echo "... hiclures"
 	@echo "... src/filehandle.o"
 	@echo "... src/filehandle.i"
@@ -276,6 +326,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/read_write_occurrences.o"
+	@echo "... src/read_write_occurrences.i"
+	@echo "... src/read_write_occurrences.s"
 	@echo "... src/seq_distances.o"
 	@echo "... src/seq_distances.i"
 	@echo "... src/seq_distances.s"

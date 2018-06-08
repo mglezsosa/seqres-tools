@@ -28,6 +28,9 @@ fabric.properties
 
 # Project specific
 hiclures*
+rw*
+*.dat
 tests_dir/
 
 *.freq
+src/bsort/

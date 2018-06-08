@@ -29,4 +29,18 @@
  */
 void count_kmers(char* filename, int k);
 
+/**
+ * Checks whether c is 'A', 'C', 'G' or 'T'.
+ * @param c character.
+ * @return 1 if is a base, 0 if not.
+ */
+int isBase(char c);
+
+/**
+ * Checks whether c is '\n'.
+ * @param c character
+ * @return 1 if is a line break, 00 if not.
+ */
+int isLineBreak(char c);
+
 #endif //HICLURES_TOOLS_KMER_COUNTER_H

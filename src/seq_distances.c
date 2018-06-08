@@ -16,6 +16,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "seq_distances.h"
 
 void
@@ -24,24 +25,29 @@ zscores(float **GE, int nCols, int nRows)
     int j,i;
     float avg, d, DS, var;
 
-    for (j=0;j<nCols;j++)
-        for (i=0;i< nRows;i++)
+    for (j=0;j<nCols;j++) {
+        for (i=0;i< nRows;i++) {
             if (GE[j][i] !=0) {
-                GE[j][i]=log2((double) GE[j][i]);
+                GE[j][i]= (float) log2((double) GE[j][i]);
             }
+        }
+    }
 
     for (i=0;i< nCols; i++) {
         avg = 0;
-        for (j=0; j < nRows; j++) avg += GE[i][j];
+        for (j=0; j < nRows; j++) {
+            avg += GE[i][j];
+        }
         avg /= nRows;
         var = 0;
         for (j=0; j < nRows; j++) {
             d = (GE[i][j] - avg);
             var += d * d;
         }
-        DS = sqrt(var) / nRows;
-        for (j=0; j < nRows; j++)
+        DS = (sqrtf(var) / nRows);
+        for (j=0; j < nRows; j++) {
             GE[i][j] = (GE[i][j] - avg) / DS;
+        }
     }
 }
 
@@ -69,17 +75,19 @@ corr_distance(const float *profile1, const float *profile2, int length)
     y_mean /= length;
 
     for (a=0; a<length; a++){
-        dx = (profile1[a] - x_mean);
+        dx = (float) (profile1[a] - x_mean);
         Sx += dx*dx;
 
-        dy = (profile2[a] - y_mean);
+        dy = (float) (profile2[a] - y_mean);
         Sy += dy*dy;
 
         Sxy += dx * dy;
     }
-    if (Sx*Sy==0) return 0;
+    if (Sx*Sy==0) {
+        return 0;
+    }
 
-    distance = Sxy/(float)(sqrt(Sx*Sy));
+    distance = (float) (Sxy / (sqrt(Sx * Sy)));
 
     return distance;
 }
@@ -94,6 +102,60 @@ eucl_distance(const float *profile1, const float *profile2,int n)
         dd= profile1[i] - profile2[i];
         d+=dd*dd;
     }
-    d=sqrt(d);
+    d = sqrtf(d);
     return d;
+}
+
+void
+compute_distances(char* filename1, char* filename2, int k)
+{
+    FILE *f1;
+    FILE *f2;
+    char* line = NULL;
+    size_t len = 0;
+    float freq;
+    int cntr = 0;
+    float *matrix[2];
+    int mat_size = (int) pow(k, 4);
+    if (( matrix[0] = (float *) malloc(mat_size * sizeof(float)))==NULL) {
+        fprintf(stderr,"run out of memory\n");
+        exit(-1);
+    }
+    if (( matrix[1] = (float *) malloc(mat_size * sizeof(float)))==NULL) {
+        fprintf(stderr,"run out of memory\n");
+        exit(-1);
+    }
+
+    if ((f1 = fopen(filename1, "rte"))==NULL) { // open input file
+        fprintf(stderr,"opening input file\n");
+        exit(-1);
+    }
+    if ((f2 = fopen(filename2, "rte"))==NULL) { // open input file
+        fprintf(stderr,"opening input file\n");
+        exit(-1);
+    }
+    while (getline(&line, &len, f1) != -1) {
+        sscanf(line, "%*s\t%f", &freq);
+        matrix[0][cntr++] = freq;
+    }
+    line = NULL;
+    len = 0;
+    cntr = 0;
+    while (getline(&line, &len, f2) != -1) {
+        sscanf(line, "%*s\t%f", &freq);
+        matrix[1][cntr++] = freq;
+    }
+    zscores(matrix, 2, (int)pow(k, 4));
+    printf("z-scores:\n");
+    for (int j = 0; j < pow(k, 4); ++j) {
+        printf("%f\t%f\n", matrix[0][j], matrix[1][j]);
+    }
+
+    printf("Correlation distance:\n");
+    printf("%f\n", corr_distance(matrix[0], matrix[1], 16));
+    printf("Eucledian distance:\n");
+    printf("%f\n", eucl_distance(matrix[0], matrix[1], 16));
+
+    fclose(f1);
+    fclose(f2);
 }

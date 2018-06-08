@@ -21,29 +21,37 @@
 #include <math.h>
 
 /**
- *
- * @param GE
- * @param nCols
- * @param nRows
+ * Transform frequencies matrix into z-scored values.
+ * @param GE frequencies matrix.
+ * @param nCols number of columns.
+ * @param nRows number of rows.
  */
 void zscores(float **GE, int nCols, int nRows);
 
 /**
- *
- * @param profile1
- * @param profile2
- * @param length
- * @return
+ * Calculates de correlation distances over two frequencies vectors.
+ * @param profile1 pointer to a z-scored frequencies array.
+ * @param profile2 pointer to a z-scored frequencies array.
+ * @param length length of the arrays.
+ * @return correlation distance.
  */
 float corr_distance(const float *profile1, const float *profile2, int length);
 
 /**
- *
- * @param profile1
- * @param profile2
- * @param n
- * @return
+ * Calculates de eucledian distance over two frequencies vectors.
+ * @param profile1 pointer to a z-scored frequencies array.
+ * @param profile2 pointer to a z-scored frequencies array.
+ * @param n length of the arrays.
+ * @return eucledian distance.
  */
 float eucl_distance(const float *profile1, const float *profile2,int n);
+
+/**
+ * Computes correlation and euclidean distance for the given vectors of kmer frequencies.
+ * @param filename1 Pointer to a vector.
+ * @param filename2 Poiter to the other vector.
+ * @param k length of the kmers.
+ */
+void compute_distances(char* filename1, char* filename2, int k);
 
 #endif //HICLURES_TOOLS_SEQ_DISTANCES_H

@@ -28,7 +28,9 @@ loadseq(char *addr, sequence_t *S, off_t offset, off_t size)
         offset++;
     }
 
-    if (offset == size) return size;
+    if (offset == size) {
+        return size;
+    }
 
     while(addr[++offset] == ' ');
 
@@ -41,14 +43,16 @@ loadseq(char *addr, sequence_t *S, off_t offset, off_t size)
 
     while(c!='\n') c=addr[offset++]; // skip the rest of line
 
-    c = addr[++offset]; // Sequence starts inmediately after the line break
+    c = addr[offset]; // Sequence starts inmediately after the line break
     S->startAddress = offset;
     S->endAddress = offset;
 
     while(c != '>' && S->endAddress != size) {
         c = (char) toupper(addr[S->endAddress]);
         S->endAddress++;
-        if (c >= 'A' && c <= 'Z') len++;
+        if (c >= 'A' && c <= 'Z') {
+            len++;
+        }
     }
 
     S->len=len;
@@ -72,17 +76,17 @@ base2num(char c)
     return 4;
 }
 
-int
+unsigned long long int
 kmer2num(char *kmer, int k)
 {
-    int result = 0;
+    unsigned long long int result = 0;
     for (char i = 0; i < k; ++i) {
         result += base2num(kmer[i]) * pow(4, k-i-1);
     }
     return result;
 }
 
-unsigned long
+unsigned long long int
 base4idx(unsigned long hash)
 {
     unsigned long decimal = 1;

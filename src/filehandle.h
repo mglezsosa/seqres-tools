@@ -25,9 +25,6 @@
 #ifndef PRACTICA_FILEHANDLE_H
 #define PRACTICA_FILEHANDLE_H
 
-#define handle_error(msg) \
-           do { perror(msg); exit(EXIT_FAILURE); } while (0)
-
 /**
  * Initializes file memory-mapping using mmap.
  * @param fd file descriptor.
