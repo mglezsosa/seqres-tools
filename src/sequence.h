@@ -59,7 +59,7 @@ char base2num(char c);
  * @param k length of the kmer.
  * @return base-10 kmer index.
  */
-int kmer2num(char * kmer, int k);
+unsigned long long int kmer2num(char *kmer, int k);
 
 /**
  * Translates a base-10 kmer index to a {A, C, G, T}-represented kmer.

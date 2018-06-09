@@ -16,6 +16,7 @@
  */
 
 #include "filehandle.h"
+#include "globals.h"
 
 char*
 imppdfile(int fd, off_t size, off_t offset, size_t length)
