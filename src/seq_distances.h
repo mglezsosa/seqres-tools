@@ -35,7 +35,7 @@ void zscores(float **GE, int nCols, int nRows);
  * @param length length of the arrays.
  * @return correlation distance.
  */
-float corr_distance(const float *profile1, const float *profile2, int length);
+float corr_distance(float *profile1, float *profile2, int length);
 
 /**
  * Calculates de eucledian distance over two frequencies vectors.
@@ -44,7 +44,7 @@ float corr_distance(const float *profile1, const float *profile2, int length);
  * @param n length of the arrays.
  * @return eucledian distance.
  */
-float eucl_distance(const float *profile1, const float *profile2,int n);
+float eucl_distance(float *profile1, float *profile2,int n);
 
 /**
  * Computes correlation and euclidean distance for the given vectors of kmer frequencies.

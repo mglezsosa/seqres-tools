@@ -23,7 +23,7 @@ void
 zscores(float **GE, int nCols, int nRows)
 {
     int j,i;
-    float avg, d, DS, var;
+    float avg = 0, d = 0, DS = 0, var = 0;
 
     for (j=0;j<nCols;j++) {
         for (i=0;i< nRows;i++) {
@@ -53,7 +53,7 @@ zscores(float **GE, int nCols, int nRows)
 
 
 float
-corr_distance(const float *profile1, const float *profile2, int length)
+corr_distance(float *profile1, float *profile2, int length)
 {
     int 	a;
     float	distance;
@@ -86,14 +86,13 @@ corr_distance(const float *profile1, const float *profile2, int length)
     if (Sx*Sy==0) {
         return 0;
     }
-
     distance = (float) (Sxy / (sqrt(Sx * Sy)));
 
     return distance;
 }
 
 float
-eucl_distance(const float *profile1, const float *profile2,int n)
+eucl_distance(float *profile1, float *profile2,int n)
 {
     float d=0,dd;
     int i;
@@ -116,7 +115,7 @@ compute_distances(char* filename1, char* filename2, int k)
     float freq;
     int cntr = 0;
     float *matrix[2];
-    int mat_size = (int) pow(k, 4);
+    int mat_size = (int) pow(4, k);
     if (( matrix[0] = (float *) malloc(mat_size * sizeof(float)))==NULL) {
         fprintf(stderr,"run out of memory\n");
         exit(-1);
@@ -145,16 +144,16 @@ compute_distances(char* filename1, char* filename2, int k)
         sscanf(line, "%*s\t%f", &freq);
         matrix[1][cntr++] = freq;
     }
-    zscores(matrix, 2, (int)pow(k, 4));
+    zscores(matrix, 2, mat_size);
     printf("z-scores:\n");
-    for (int j = 0; j < pow(k, 4); ++j) {
+    for (int j = 0; j < mat_size; ++j) {
         printf("%f\t%f\n", matrix[0][j], matrix[1][j]);
     }
 
     printf("Correlation distance:\n");
-    printf("%f\n", corr_distance(matrix[0], matrix[1], 16));
+    printf("%f\n", corr_distance(&matrix[0][0], &matrix[1][0], mat_size));
     printf("Eucledian distance:\n");
-    printf("%f\n", eucl_distance(matrix[0], matrix[1], 16));
+    printf("%f\n", eucl_distance(&matrix[0][0], &matrix[1][0], mat_size));
 
     fclose(f1);
     fclose(f2);
