@@ -14,29 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef HICLURES_TOOLS_DYNAMIC_ARRAY_H
+#define HICLURES_TOOLS_DYNAMIC_ARRAY_H
 
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+typedef struct {
+    int *array;
+    size_t used;
+    size_t size;
+} Array;
 
-#ifndef PRACTICA_FILEHANDLE_H
-#define PRACTICA_FILEHANDLE_H
+void initArray(Array *a, size_t initialSize);
 
-#define handle_error(msg) \
-           do { perror(msg); exit(EXIT_FAILURE); } while (0)
+void insertArray(Array *a, int element);
 
-/**
- * Initializes file memory-mapping using mmap.
- * @param fd file descriptor.
- * @param size file size.
- * @param offset reading starting point.
- * @param length number of bytes to be read. If it is 0, it will be read until the end of file.
- * @return address of the mapping
- */
-char* imppdfile(int fd, off_t size, off_t offset, size_t length);
+void freeArray(Array *a);
 
-
-#endif //PRACTICA_FILEHANDLE_H
+#endif //HICLURES_TOOLS_DYNAMIC_ARRAY_H
