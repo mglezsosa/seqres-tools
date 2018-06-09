@@ -31,6 +31,4 @@ hiclures*
 rw*
 *.dat
 tests_dir/
-
-*.freq
-src/bsort/
+Makefile

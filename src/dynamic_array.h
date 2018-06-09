@@ -14,25 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HICLURES_TOOLS_HITS_H
-#define HICLURES_TOOLS_HITS_H
-#include <stdint.h>
-#include "dynamic_array.h"
+#ifndef HICLURES_TOOLS_DYNAMIC_ARRAY_H
+#define HICLURES_TOOLS_DYNAMIC_ARRAY_H
 
-/**
- * Collapse same kmer occurences into same line on ordered kmer occurrences file.
- * @param fp1 Ordered kmer occurrences file.
- * @param fc1 Name of the output file.
- */
-void collapse_occurrences(FILE* fp1, FILE* fc1);
+typedef struct {
+    int *array;
+    size_t used;
+    size_t size;
+} Array;
 
-/**
- * Create a file with kmer hits in two collapsed kmer occurrences files.
- * @param profile1 Name of the first file.
- * @param profile2 Name of the second file.
- * @param outfile Name of the output file.
- * @return
- */
-void hits(FILE* fc1, FILE* fc2, FILE* out);
+void initArray(Array *a, size_t initialSize);
 
-#endif //HICLURES_TOOLS_HITS_H
+void insertArray(Array *a, int element);
+
+void freeArray(Array *a);
+
+#endif //HICLURES_TOOLS_DYNAMIC_ARRAY_H

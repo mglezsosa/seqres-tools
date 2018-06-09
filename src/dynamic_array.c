@@ -14,25 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HICLURES_TOOLS_HITS_H
-#define HICLURES_TOOLS_HITS_H
-#include <stdint.h>
+#include <stdlib.h>
 #include "dynamic_array.h"
 
-/**
- * Collapse same kmer occurences into same line on ordered kmer occurrences file.
- * @param fp1 Ordered kmer occurrences file.
- * @param fc1 Name of the output file.
- */
-void collapse_occurrences(FILE* fp1, FILE* fc1);
+void initArray(Array *a, size_t initialSize) {
+    a->array = (int *)malloc(initialSize * sizeof(int));
+    a->used = 0;
+    a->size = initialSize;
+}
 
-/**
- * Create a file with kmer hits in two collapsed kmer occurrences files.
- * @param profile1 Name of the first file.
- * @param profile2 Name of the second file.
- * @param outfile Name of the output file.
- * @return
- */
-void hits(FILE* fc1, FILE* fc2, FILE* out);
+void insertArray(Array *a, int element) {
+    // a->used is the number of used entries, because a->array[a->used++] updates a->used only *after* the array has been accessed.
+    // Therefore a->used can go up to a->size
+    if (a->used == a->size) {
+        a->size *= 2;
+        a->array = (int *)realloc(a->array, a->size * sizeof(int));
+    }
+    a->array[a->used++] = element;
+}
 
-#endif //HICLURES_TOOLS_HITS_H
+void freeArray(Array *a) {
+    free(a->array);
+    a->array = NULL;
+    a->used = a->size = 0;
+}
