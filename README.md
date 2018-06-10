@@ -1,7 +1,8 @@
-#SeqRes tools
+# SeqRes tools
 
 SeqRes tools stands for **Seq**uences **Res**emblance tools.
-<sub><sup><sub><sup>SeqRes is meant for learning purposes only.</sup></sub></sup></sub>
+
+<sub><sup>SeqRes is meant for learning purposes only.</sup></sub>
 
 ## Dependencies
 
