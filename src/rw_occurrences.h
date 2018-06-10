@@ -14,31 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdlib.h>
-#include "dynamic_array.h"
+#ifndef HICLURES_TOOLS_RW_OCCURRENCES_H
+#define HICLURES_TOOLS_RW_OCCURRENCES_H
 
-void
-initArray(Array *a, size_t initialSize)
-{
-    a->array = (int *)malloc(initialSize * sizeof(int));
-    a->used = 0;
-    a->size = initialSize;
-}
+/**
+ * Read a kmer occurrences file.
+ * @param filename File to be read.
+ * @param k Length of the kmers.
+ */
+void s_read(char * filename, int k);
 
-void
-insertArray(Array *a, int element)
-{
-    if (a->used == a->size) {
-        a->size *= 2;
-        a->array = (int *)realloc(a->array, a->size * sizeof(int));
-    }
-    a->array[a->used++] = element;
-}
+/**
+ * Write the kmer ocurrences file.
+ * @param infile Fasta file.
+ * @param outfile Name of the output file.
+ * @param k Length of the kmers.
+ */
+void s_write(char* infile, char* outfile, const int k);
 
-void
-freeArray(Array *a)
-{
-    free(a->array);
-    a->array = NULL;
-    a->used = a->size = 0;
-}
+#endif //HICLURES_TOOLS_RW_OCCURRENCES_H

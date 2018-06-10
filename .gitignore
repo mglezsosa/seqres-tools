@@ -27,8 +27,7 @@ crashlytics-build.properties
 fabric.properties
 
 # Project specific
-hiclures*
-rw*
-*.dat
 tests_dir/
 Makefile
+*.cbp
+seqres

@@ -22,15 +22,31 @@
 #include "hits.h"
 #include "globals.h"
 
-int
+void
 main(int argc, char *argv[])
 {
     if (!strcmp(argv[1], "kmf")) {
+        if (!strcmp(argv[2], "help")) {
+            fprintf(stderr, "USAGE: seqres kmf [sequence-fasta-file] [k]\n");
+            exit(EXIT_SUCCESS);
+        }
+        else if (argc < 4) {
+            fprintf(stderr, "USAGE: seqres kmf [sequence-fasta-file] [k]\n");
+            exit(EXIT_FAILURE);
+        }
         char* filename = argv[2];
         int k = atoi(argv[3]);
         count_kmers(filename, k);
     }
     else if (!strcmp(argv[1], "dst")) {
+        if (!strcmp(argv[2], "help")) {
+            fprintf(stderr, "USAGE: seqres dst [frequences-file-1] [frequences-file-2] [k]\n");
+            exit(EXIT_SUCCESS);
+        }
+        else if (argc < 5) {
+            fprintf(stderr, "USAGE: seqres dst [frequences-file-1] [frequences-file-2] [k]\n");
+            exit(EXIT_FAILURE);
+        }
         char *filename1 = argv[2];
         char *filename2 = argv[3];
         int k = atoi(argv[4]);
@@ -40,6 +56,16 @@ main(int argc, char *argv[])
             s_read(argv[2], atoi(argv[3]));
     }
     else if (!strcmp(argv[1], "collapse")) {
+        if (!strcmp(argv[2], "help")) {
+            fprintf(stderr, "USAGE: seqres collapse [sorted-word-occurrence-file]\n"
+                            "\tOutput is in file: [collapse sorted-word-occurrence-file]_collapse\n");
+            exit(EXIT_SUCCESS);
+        }
+        else if (argc < 3) {
+            fprintf(stderr, "USAGE: seqres collapse [sorted-word-occurrence-file]\n"
+                           "\tOutput is in file: [collapse sorted-word-occurrence-file]_collapse\n");
+            exit(EXIT_FAILURE);
+        }
         FILE* fp1 = fopen(argv[2], "re");
         char buffer[50];
         sprintf(buffer, "%s_collapse", argv[2]);
@@ -49,9 +75,25 @@ main(int argc, char *argv[])
         fclose(fc1);
     }
     else if (!strcmp(argv[1], "writeo")) {
+        if (!strcmp(argv[2], "help")) {
+            fprintf(stderr, "USAGE: seqres writeo [k] [sequence-fasta-file] [output-file]\n");
+            exit(EXIT_SUCCESS);
+        }
+        else if (argc < 5) {
+            fprintf(stderr, "USAGE: seqres writeo [k] [sequence-fasta-file] [output-file]\n");
+            exit(EXIT_FAILURE);
+        }
         s_write(argv[3], argv[4], atoi(argv[2]));
     }
     else if (!strcmp(argv[1], "hits")) {
+        if (!strcmp(argv[2], "help")) {
+            fprintf(stderr, "USAGE: seqres hits [collapsed-occurrences-file-1] [collapsed-occurrences-file-2] [output-file]\n");
+            exit(EXIT_SUCCESS);
+        }
+        else if (argc < 5) {
+            fprintf(stderr, "USAGE: seqres hits [collapsed-occurrences-file-1] [collapsed-occurrences-file-2] [output-file]\n");
+            exit(EXIT_FAILURE);
+        }
         char* profile1 = argv[2];
         char* profile2 = argv[3];
         char* outfile = argv[4];
@@ -77,9 +119,19 @@ main(int argc, char *argv[])
         fclose(f1);
         fclose(f2);
     }
+    else if (!strcmp(argv[1], "--help")) {
+        fprintf(stderr, "Available commands:\n"
+                       "\tkmf: count kmer frequencies.\n"
+                       "\tdst: compute z-scores, distence correlation and euclidean distance of two sequencies.\n"
+                       "\twriteo: write word occurrences on a sequence.\n"
+                       "\tcollapse: collapse a occurences file into a one-line-occurrences file.\n"
+                       "\thits: encounter the occurrence matches on two sequences.\n"
+                       "See seqres [command] help for detailed usage info on every command.\n");
+    }
     else {
         fprintf(stderr, "Unrecognized command '%s'.\n"
                         "See 'hiclures --help'.\n", argv[1]);
+        exit(EXIT_FAILURE);
     }
 
     exit(EXIT_SUCCESS);

@@ -150,7 +150,7 @@ compute_distances(char* filename1, char* filename2, int k)
         printf("%f\t%f\n", matrix[0][j], matrix[1][j]);
     }
 
-    printf("Correlation distance:\n");
+    printf("Distance correlation:\n");
     printf("%f\n", corr_distance(&matrix[0][0], &matrix[1][0], mat_size));
     printf("Eucledian distance:\n");
     printf("%f\n", eucl_distance(&matrix[0][0], &matrix[1][0], mat_size));
